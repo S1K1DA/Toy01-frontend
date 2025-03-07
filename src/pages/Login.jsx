@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import api from '../services/authService';  // authService 임포트
+import api from '../services/authService';
 import '../styles/login.css';
 
 function Login() {
@@ -20,7 +20,8 @@ function Login() {
       const response = await api.post("/login", userData);  // 로그인 API 호출
       console.log('로그인 성공:', response);
       sessionStorage.setItem('email', email);  // 이메일을 세션에 저장
-      navigate('/mypage');  // 로그인 후 마이페이지로 리디렉션
+      navigate('/');
+      window.location.reload();  // 페이지 새로고침
     } catch (err) {
       console.error('로그인 실패:', err);
       if (err.response) {
