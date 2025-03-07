@@ -32,7 +32,8 @@ body {
   .nav a:hover {
     color: #ff8c00;
   }
-  
+
+  .auth .logout-btn,
   .auth .login-btn {
     background: #ff8c00;
     padding: 8px 16px;
@@ -40,7 +41,8 @@ body {
     text-decoration: none;
     color: white;
   }
-  
+
+  .auth .logout-btn,
   .auth .login-btn:hover {
     background: #ff9f1c;
   }
