@@ -20,7 +20,7 @@ function Header() {
         <Link to="/">홈</Link>
         <Link to="/projects">프로젝트 찾기</Link>
         <Link to="/create">모집 만들기</Link>
-        <Link to="/mypage">마이페이지</Link>
+        {isLoggedIn && <Link to="/mypage">마이페이지</Link>}
       </nav>
       <div className="auth">
         {isLoggedIn ? (

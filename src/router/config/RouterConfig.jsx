@@ -8,6 +8,7 @@ import Footer from "../../components/Footer";
 import Home from "../../pages/Home";
 import Login from "../../pages/Login";
 import Register from "../../pages/Register";
+import MyPage from "../../pages/MyPage";
 
 const RouterConfig = () => (
   <AuthProvider> {/* AuthContext로 앱을 감싸 로그인 상태 관리 */}
@@ -17,6 +18,7 @@ const RouterConfig = () => (
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/mypage" element={<MyPage />} />
       </Routes>
       <Footer /> {/* 모든 페이지에서 공통으로 보이게 추가 */}
     </Router>

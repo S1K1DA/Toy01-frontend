@@ -1,0 +1,198 @@
+/* 마이페이지 전체 레이아웃 */
+.mypage-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #181818;
+    color: white;
+  }
+  
+  /* 사이드바 */
+  .mypage-sidebar {
+    width: 250px;
+    background-color: #222;
+    padding: 20px;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  .mypage-sidebar h2 {
+    color: orange;
+    margin-bottom: 20px;
+  }
+  
+  .mypage-sidebar ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .mypage-sidebar li {
+    padding: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .mypage-sidebar li:hover,
+  .mypage-sidebar .active {
+    background-color: orange;
+    color: black;
+  }
+  
+  /* 메인 콘텐츠 */
+  .mypage-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 500px;
+    background: #333;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+    top: 50px; /* 중앙 정렬 */
+  }
+  
+  /* 정보 수정 제목 중앙 정렬 */
+  .profile-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* 프로필 이미지 스타일 */
+  .profile-image-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .profile-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border: 3px solid orange;
+    box-shadow: 0 0 10px rgba(255, 165, 0, 0.7);
+  }
+  
+  .upload-btn {
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: orange;
+    color: black;
+    font-weight: bold; /* 볼드 추가 */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    transition: 0.3s;
+  }
+  
+  .upload-btn:hover {
+    background-color: #ff9800;
+    box-shadow: 0px 4px 8px rgba(255, 165, 0, 0.5); /* 강조 효과 */
+  }
+
+  /* 프로필 정보 (닉네임, 이메일, 이름) */
+  .profile-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+  }
+  
+  /* 라벨을 오른쪽으로 이동 */
+  .profile-info .info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    margin: 15px 0;
+  }
+  
+  .profile-info label {
+    font-size: 14px;
+    color: #aaa;
+    flex: 1;
+    text-align: left; 
+  }
+  
+  .profile-info span {
+    cursor: pointer;
+    flex: 2;
+    text-align: left; 
+  }
+  
+  /* 비밀번호 변경 UI */
+  .password-container {
+    max-width: 350px;
+    margin: auto;
+    background: #333;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 30px; 
+  }
+  
+  .password-container input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #666;
+    border-radius: 5px;
+    background: #444;
+    color: white;
+  }
+  
+  /* 버튼 */
+  .save-btn,
+  .delete-btn {
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: orange;
+    color: black;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .save-btn:hover,
+  .delete-btn:hover {
+    background-color: #ff9800;
+  }
+  
+  .mypage-content {
+    margin-bottom: 100px;
+  }
+
+  /* 파일 업로드 버튼 숨기기 */
+.file-input {
+    display: none;
+  }
+  
+  /* 업로드 버튼 스타일 */
+.upload-label {
+    display: inline-block;
+    padding: 1px 11px;
+    background-color: orange;
+    color: black;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 1px;
+    transition: 0.3s;
+    font-weight: normal;
+  }
+  
+  .upload-label:hover {
+    background-color: #ff9800;
+  }
+  
+  
