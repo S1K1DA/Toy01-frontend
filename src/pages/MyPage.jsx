@@ -18,7 +18,7 @@ const MyPage = () => {
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
-    // 마이페이지 데이터 불러오기 (초기 렌더링)
+    // 마이페이지 데이터 불러오기
     useEffect(() => {
         let isMounted = true;
         if (isLoggedIn) {
@@ -37,13 +37,13 @@ const MyPage = () => {
         return () => { isMounted = false; };
     }, [isLoggedIn]);
 
-    // 프로필 이미지 변경 핸들러 (업로드 시 미리보기 즉시 반영)
+    // 프로필 이미지 변경 핸들러
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) {
             const previewUrl = URL.createObjectURL(file);
             setSelectedFile(file);
-            setPreviewImage(previewUrl);  
+            setPreviewImage(previewUrl);
         }
     };
 
@@ -91,6 +91,24 @@ const MyPage = () => {
         }
     };
 
+    // 비밀번호 변경
+    const handleChangePassword = () => {
+        if (newPassword !== confirmPassword) {
+            alert("비밀번호가 일치하지 않습니다.");
+            return;
+        }
+        console.log("비밀번호 변경:", newPassword);
+        // 실제 API 연동 필요
+    };
+
+    // 계정 삭제
+    const handleDeleteAccount = () => {
+        if (window.confirm("정말 계정을 삭제하시겠습니까?")) {
+            alert("계정이 삭제되었습니다.");
+            // 실제 API 연동 필요
+        }
+    };
+
     return (
         <div className="mypage-container">
             <aside className="mypage-sidebar">
@@ -117,12 +135,11 @@ const MyPage = () => {
                     <div className="profile-container">
                         <h2>정보 수정</h2>
                         <div className="profile-section">
-                            {/* 프로필 이미지 */}
                             <div className="profile-image-wrapper">
                                 <img
                                     src={previewImage || "/default-profile.png"}
                                     className="profile-image"
-                                    alt="프로필"
+                                    alt=""
                                 />
                                 <input
                                     type="file"
@@ -150,6 +167,30 @@ const MyPage = () => {
                             ))}
                         </div>
                         <button className="upload-btn" onClick={handleProfileUpdate}>수정</button>
+                    </div>
+                )}
+
+                {activeTab === "password" && (
+                    <div className="password-container">
+                        <h2>비밀번호 변경</h2>
+                        <input type="password" placeholder="새 비밀번호" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
+                        <input type="password" placeholder="비밀번호 확인" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                        <button className="save-btn" onClick={handleChangePassword}>비밀번호 변경</button>
+                    </div>
+                )}
+
+                {activeTab === "payments" && (
+                    <div className="payments-container">
+                        <h2>결제 내역</h2>
+                        <p>아직 결제 내역이 없습니다.</p>
+                    </div>
+                )}
+
+                {activeTab === "account" && (
+                    <div className="account-container">
+                        <h2>계정 삭제</h2>
+                        <p>계정을 삭제하면 복구할 수 없습니다.</p>
+                        <button className="delete-btn" onClick={handleDeleteAccount}>계정 삭제</button>
                     </div>
                 )}
             </section>
