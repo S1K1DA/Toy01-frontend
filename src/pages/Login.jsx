@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/authService';
 import '../styles/login.css';
+import { AuthContext } from '../context/AuthContext';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -9,6 +10,7 @@ function Login() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false); // 로딩 상태 추가
   const navigate = useNavigate();  // 로그인 후 리디렉션을 위한 useNavigate
+  const {login} =useContext(AuthContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,9 +21,11 @@ function Login() {
       const userData = { email, password };
       const response = await api.post("/login", userData);  // 로그인 API 호출
       console.log('로그인 성공:', response);
+
       sessionStorage.setItem('email', email);  // 이메일을 세션에 저장
+      login(email);
       navigate('/');
-      window.location.reload();  // 페이지 새로고침
+
     } catch (err) {
       console.error('로그인 실패:', err);
       if (err.response) {

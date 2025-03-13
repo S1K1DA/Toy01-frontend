@@ -7,10 +7,8 @@ const AuthProvider = ({ children }) => {
 
   // 페이지가 처음 로드될 때 sessionStorage를 확인
   useEffect(() => {
-    const email = sessionStorage.getItem('email');
-    if (email) {
-      setIsLoggedIn(true);  // 로그인 상태로 설정
-    }
+    const email = sessionStorage.getItem("email");
+    setIsLoggedIn(!!email); // email이 있으면 true, 없으면 false
   }, []);
 
   // 로그인 함수

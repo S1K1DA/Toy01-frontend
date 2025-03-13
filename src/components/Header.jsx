@@ -1,15 +1,10 @@
-import React, { useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext'; // 경로 수정
-import '../styles/global.css';
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
+import "../styles/global.css";
 
 function Header() {
   const { isLoggedIn, logout } = useContext(AuthContext);
-
-  // 로그아웃 후 강제로 리렌더링
-  useEffect(() => {
-    // 상태가 바뀌면 UI 리렌더링
-  }, [isLoggedIn]);  // isLoggedIn 상태가 바뀔 때마다 실행
 
   return (
     <header className="header">

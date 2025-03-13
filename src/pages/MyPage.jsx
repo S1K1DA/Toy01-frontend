@@ -11,6 +11,7 @@ const MyPage = () => {
         email: "",
         name: "",
         profileImagePath: "",
+        currentPassword: "",
     });
 
     const [selectedFile, setSelectedFile] = useState(null);
@@ -92,14 +93,31 @@ const MyPage = () => {
     };
 
     // 비밀번호 변경
-    const handleChangePassword = () => {
-        if (newPassword !== confirmPassword) {
-            alert("비밀번호가 일치하지 않습니다.");
+    const handleChangePassword = async () => {
+        if (!userData.currentPassword || !newPassword) {
+            alert("현재 비밀번호와 새 비밀번호를 입력하세요.");
             return;
         }
-        console.log("비밀번호 변경:", newPassword);
-        // 실제 API 연동 필요
+    
+        try {
+            await api.post("/update-password", {
+                currentPassword: userData.currentPassword,  // ✅ 현재 비밀번호 추가
+                newPassword: newPassword,
+            });
+    
+            alert("비밀번호가 변경되었습니다.");
+            setNewPassword("");
+            setConfirmPassword("");
+            setUserData((prev) => ({
+                ...prev,
+                currentPassword: "", // 입력값 초기화
+            }));
+        } catch (error) {
+            console.error("변경 실패:", error);
+            alert(error.response?.data || "비밀번호 변경 중 오류가 발생했습니다.");
+        }
     };
+    
 
     // 계정 삭제
     const handleDeleteAccount = () => {
@@ -173,11 +191,28 @@ const MyPage = () => {
                 {activeTab === "password" && (
                     <div className="password-container">
                         <h2>비밀번호 변경</h2>
-                        <input type="password" placeholder="새 비밀번호" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
-                        <input type="password" placeholder="비밀번호 확인" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                        <input
+                            type="password"
+                            placeholder="현재 비밀번호"
+                            value={userData.currentPassword}
+                            onChange={(e) => setUserData({ ...userData, currentPassword: e.target.value })}
+                        />
+                        <input
+                            type="password"
+                            placeholder="새 비밀번호"
+                            value={newPassword}
+                            onChange={(e) => setNewPassword(e.target.value)}
+                        />
+                        <input
+                            type="password"
+                            placeholder="비밀번호 확인"
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                        />
                         <button className="save-btn" onClick={handleChangePassword}>비밀번호 변경</button>
                     </div>
                 )}
+
 
                 {activeTab === "payments" && (
                     <div className="payments-container">
