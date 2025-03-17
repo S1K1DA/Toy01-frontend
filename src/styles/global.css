@@ -1,74 +1,128 @@
-/* ✅ 공통 스타일 */
+/* 공통 스타일 */
 body {
-    margin: 0;
-    font-family: 'Noto Sans KR', sans-serif;
-    background-color: #1E1E1E;
-    color: white;
-  }
-  
-  /* ✅ 헤더 스타일 */
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px 32px;
-    background: #252525;
-  }
-  
-  .logo a {
-    font-size: 24px;
-    font-weight: bold;
-    color: #ff8c00;
-    text-decoration: none;
-  }
-  
-  .nav a {
-    margin: 0 15px;
-    color: white;
-    text-decoration: none;
-    font-size: 16px;
-  }
-  
-  .nav a:hover {
-    color: #ff8c00;
-  }
+  margin: 0;
+  height: 100%;
+  font-family: 'Noto Sans KR', sans-serif;
+  background-color: #1E1E1E;
+  color: white;
+  overflow-x: hidden; /* 가로 스크롤 방지 */
+}
 
-  .auth .logout-btn,
-  .auth .login-btn {
-    background: #ff8c00;
-    padding: 8px 16px;
-    border-radius: 6px;
-    text-decoration: none;
-    color: white;
-  }
+/* 헤더 스타일 */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 32px;
+  background: #252525;
+  position: relative;
+}
 
-  .auth .logout-btn,
-  .auth .login-btn:hover {
-    background: #ff9f1c;
-  }
-  
-  /* ✅ 푸터 스타일 */
-  .footer {
-    text-align: center;
-    padding: 20px;
-    background: #252525;
-    margin-top: 50px;
-  }
-  
-  .footer-links a {
-    margin: 0 15px;
-    color: #bbb;
-    text-decoration: underline;
-    font-size: 14px;
-  }
-  
-  .footer-links a:hover {
-    color: #ff8c00;
-  }
-  
-  .copyright {
-    margin-top: 10px;
-    font-size: 12px;
-    color: #888;
-  }
-  
+/* 로고 */
+.logo a {
+  font-size: 24px;
+  font-weight: bold;
+  color: #ff8c00;
+  text-decoration: none;
+}
+
+/* 네비게이션 */
+.nav {
+  display: flex;
+  align-items: center;
+}
+
+.nav a {
+  margin: 0 15px;
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  display: inline-block; /* 가로 정렬 유지 */
+}
+
+.nav a:hover {
+  color: #ff8c00;
+}
+
+/* 커뮤니티 드롭다운 스타일 */
+.nav-item {
+  position: relative;
+  padding: 10px 15px;
+  cursor: pointer;
+  display: inline-block; 
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 40px; 
+  left: 0;
+  background: #252525;
+  width: 150px;
+  border-radius: 6px;
+  display: none;
+  flex-direction: column;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  z-index: 100;
+}
+
+.nav-item:hover .dropdown-menu {
+  display: flex;
+}
+
+.dropdown-item {
+  padding: 10px 15px;
+  color: white;
+  text-decoration: none;
+  transition: background 0.3s;
+  text-align: left; /* 왼쪽 정렬 유지 */
+}
+
+.dropdown-item:hover {
+  background: orange;
+  color: black;
+}
+
+/* 로그인, 로그아웃 버튼 */
+.auth {
+  display: flex;
+  align-items: center;
+}
+
+.auth .logout-btn,
+.auth .login-btn {
+  background: #ff8c00;
+  padding: 8px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  color: white;
+}
+
+.auth .logout-btn:hover,
+.auth .login-btn:hover {
+  background: #ff9f1c;
+}
+
+/* 푸터 스타일 */
+.footer {
+  text-align: center;
+  padding: 20px;
+  background: #252525;
+  width: 100%;
+}
+
+.footer-links a {
+  margin: 0 15px;
+  color: #bbb;
+  text-decoration: underline;
+  font-size: 14px;
+}
+
+.footer-links a:hover {
+  color: #ff8c00;
+}
+
+.copyright {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #888;
+}

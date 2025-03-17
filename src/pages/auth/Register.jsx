@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import api from '../services/authService';
-import '../styles/register.css';
+import api from '../../services/authService';
+import '../../styles/auth/register.css';
 
 function Register() {
   const [email, setEmail] = useState('');

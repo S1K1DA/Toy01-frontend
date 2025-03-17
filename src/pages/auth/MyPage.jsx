@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
-import "../styles/mypage.css";
-import { AuthContext } from "../context/AuthContext";
-import api from "../services/authService";
+import '../../styles/auth/mypage.css';
+import { AuthContext } from "../../context/AuthContext";
+import api from "../../services/authService";
 
 const MyPage = () => {
     const { isLoggedIn } = useContext(AuthContext);

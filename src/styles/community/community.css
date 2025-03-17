@@ -1,0 +1,23 @@
+.community-nav {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    padding: 10px 0;
+    background-color: #181818;
+}
+
+.nav-btn {
+    padding: 10px 20px;
+    background: #222;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.nav-btn:hover {
+    background: orange;
+    color: black;
+}

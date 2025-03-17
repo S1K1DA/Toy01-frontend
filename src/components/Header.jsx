@@ -1,10 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import "../styles/global.css";
 
 function Header() {
   const { isLoggedIn, logout } = useContext(AuthContext);
+  const [showDropdown, setShowDropdown] = useState(false);
 
   return (
     <header className="header">
@@ -13,7 +14,19 @@ function Header() {
       </div>
       <nav className="nav">
         <Link to="/">홈</Link>
-        <Link to="/projects">프로젝트 찾기</Link>
+        <div 
+          className="nav-item"
+          onMouseEnter={() => setShowDropdown(true)}
+          onMouseLeave={() => setShowDropdown(false)}
+        >
+          <span className="nav-link">커뮤니티</span>
+          {showDropdown && (
+            <div className="dropdown-menu">
+              <Link to="/community/study" className="dropdown-item">구인/구직</Link>
+              <Link to="/community/free" className="dropdown-item">자유게시판</Link>
+            </div>
+          )}
+        </div>
         <Link to="/create">모집 만들기</Link>
         {isLoggedIn && <Link to="/mypage">마이페이지</Link>}
       </nav>
