@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
-import '../../styles/community/board.css';
-import CommunityNav from '../../components/CommusityNav';
+import React, { useState, useContext } from 'react';
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from '../../../context/AuthContext'; 
+import '../../../styles/community/boardList.css';
+import CommunityNav from '../../../components/CommusityNav';
 
 const StudyBoard = () => {
+    const navigate = useNavigate();
+    const { isLoggedIn } = useContext(AuthContext);
     const [searchTerm, setSearchTerm] = useState("");  
     const [selectedTag, setSelectedTag] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
@@ -87,8 +91,10 @@ const StudyBoard = () => {
                     <p className="no-posts">📌 해당 검색어/태그에 맞는 게시물이 없습니다.</p>
                 )}
             </div>
-
-            <button className="write-btn">✍️ 글쓰기</button>
+                    
+            {isLoggedIn &&
+            <button className="write-btn" onClick={() => navigate("/community/study/create")}>✍️ 글쓰기</button>
+            }
 
             {/* 페이지네이션 */}
             <div className="pagination">

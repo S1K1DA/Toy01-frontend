@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
-import '../../styles/community/board.css';
-import CommunityNav from '../../components/CommusityNav';
+import React, { useState, useContext } from 'react';
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from '../../../context/AuthContext'; 
+import '../../../styles/community/boardList.css';
+import CommunityNav from '../../../components/CommusityNav';
 
 const FreeBoard = () => {
+    const navigate = useNavigate();
+    const { isLoggedIn } = useContext(AuthContext);
     const [searchTerm, setSearchTerm] = useState(""); 
     const [currentPage, setCurrentPage] = useState(1);
     const postsPerPage = 8;
@@ -61,7 +65,9 @@ const FreeBoard = () => {
                 )}
             </div>
 
-            <button className="write-btn">✍️ 글쓰기</button>
+            {isLoggedIn &&        
+            <button className="write-btn" onClick={() => navigate("/community/free/create")}>✍️ 글쓰기</button>       
+            }
 
             {/* 페이지네이션 */}
             <div className="pagination">
