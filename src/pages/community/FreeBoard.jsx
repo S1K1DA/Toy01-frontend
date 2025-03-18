@@ -3,7 +3,9 @@ import '../../styles/community/board.css';
 import CommunityNav from '../../components/CommusityNav';
 
 const FreeBoard = () => {
-    const [searchTerm, setSearchTerm] = useState("");  
+    const [searchTerm, setSearchTerm] = useState(""); 
+    const [currentPage, setCurrentPage] = useState(1);
+    const postsPerPage = 8;
 
     // 더미 데이터 (백엔드 연동 전에 테스트용)
     const posts = [
@@ -14,15 +16,23 @@ const FreeBoard = () => {
         { id: 5, title: "취업 준비하면서 느낀 점", author: "user05", time: "4시간 전", views: 150, likes: 12 },
     ];
 
-    // 🔥 검색 필터링 적용
+    // 검색 필터링 적용
     const filteredPosts = posts.filter(post => post.title.includes(searchTerm));
+
+    // 페이지네이션 적용 (8개씩)
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
+
+    // 페이지 변경 함수
+    const handlePageChange = (pageNumber) => setCurrentPage(pageNumber);
 
     return (
         <div className="free-board-container">
             <CommunityNav />
             <h2 className="board-title">📌 자유게시판</h2>
 
-            {/* 🔥 검색창 */}
+            {/* 검색창 */}
             <div className="search-bar">
                 <input 
                     type="text" 
@@ -35,8 +45,8 @@ const FreeBoard = () => {
 
             {/* 게시글 리스트 */}
             <div className="post-list">
-                {filteredPosts.length > 0 ? (
-                    filteredPosts.map(post => (
+                {currentPosts.length > 0 ? (
+                    currentPosts.map(post => (
                         <div className="post-card" key={post.id}>
                             <div className="post-info">
                                 <span className="author">{post.author}</span> · 
@@ -55,11 +65,11 @@ const FreeBoard = () => {
 
             {/* 페이지네이션 */}
             <div className="pagination">
-                <button>&lt;</button>
-                <button className="active">1</button>
-                <button>2</button>
-                <button>3</button>
-                <button>&gt;</button>
+                <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>&lt;</button>
+                <button className={currentPage === 1 ? "active" : ""} onClick={() => handlePageChange(1)}>1</button>
+                <button className={currentPage === 2 ? "active" : ""} onClick={() => handlePageChange(2)}>2</button>
+                <button className={currentPage === 3 ? "active" : ""} onClick={() => handlePageChange(3)}>3</button>
+                <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === 3}>&gt;</button>
             </div>
         </div>
     );
