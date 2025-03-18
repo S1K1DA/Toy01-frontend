@@ -9,8 +9,17 @@
     color: white;
 }
 
-/* 태그 필터 */
-.tag-filter {
+.free-board-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    align-items: center;
+    padding: 30px;
+    background-color: #181818;
+    color: white;
+}
+
+.search-bar {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -19,7 +28,7 @@
     margin-bottom: 20px;
 }
 
-.tag-filter input {
+.search-bar input {
     width: 100%;
     padding: 10px;
     border-radius: 5px;
@@ -42,6 +51,7 @@
     display: flex;
     gap: 10px;
     margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .tag {
@@ -125,4 +135,29 @@
 .pagination .active {
     background: orange;
     font-weight: bold;
+}
+
+.write-btn {
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    background: orange;
+    color: black;
+    padding: 12px 18px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(255, 165, 0, 0.2);
+}
+
+.write-btn:hover {
+    background: #ff9f1c;
+}
+
+.no-posts {
+    color: #bbb;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 20px;
 }
