@@ -1,18 +1,40 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { createBoard } from "../../../services/boardService";
 import "../../../styles/community/boardCreate.css";
 import CommunityNav from "../../../components/CommusityNav";
 
 const FreeBoardCreate = () => {
+    const navigate = useNavigate();
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
 
     // 글 작성 핸들러
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const newPost = { title, content };
-        console.log("작성된 글:", newPost);
-        alert("자유 게시판에 글이 등록되었습니다!");
+
+        if (!title.trim() || !content.trim()) {
+            alert("제목과 내용을 입력해주세요!");
+            return;
+        }
+
+        try {
+            const boardData = {
+                title,
+                content,
+                category: "free",
+            };
+
+            const boardNo = await createBoard(boardData);
+            alert("자유 게시글이 등록되었습니다!");
+
+            navigate(`/community/free/detail/${boardNo}`);
+        } catch (error) {
+            alert("게시글 작성 실패: " + (error.response?.data || error.message));
+        }
     };
+
+
 
     return (
         <div className="Create-Container">
@@ -20,7 +42,6 @@ const FreeBoardCreate = () => {
             <h2 className="board-title">✍️ 자유게시판 글쓰기</h2>
 
             <form className="post-form" onSubmit={handleSubmit}>
-                {/* 제목 입력 */}
                 <input
                     type="text"
                     placeholder="제목을 입력하세요..."
@@ -29,7 +50,6 @@ const FreeBoardCreate = () => {
                     required
                 />
 
-                {/* 내용 입력 */}
                 <textarea
                     placeholder="내용을 입력하세요..."
                     value={content}
@@ -37,7 +57,6 @@ const FreeBoardCreate = () => {
                     required
                 />
 
-                {/* 작성 버튼 */}
                 <button type="submit" className="submit-btn">등록하기</button>
             </form>
         </div>

@@ -49,28 +49,31 @@
     resize: none;
 }
 
-/* 태그 리스트 */
+/* 태그 선택 스타일 */
+.tag-selection {
+    margin-top: 10px;
+}
+
 .tag-list {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
 }
 
-/* 태그 버튼 */
-.tag {
+.tag-item {
     padding: 8px 12px;
-    background: #333;
-    border-radius: 15px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
     cursor: pointer;
-    color: white;
-    border: none;
-    font-size: 14px;
+    transition: all 0.3s ease;
 }
 
-.tag:hover, .tag.active {
-    background: orange;
-    color: black;
+.tag-item.selected {
+    background-color: #ff8c00;
+    color: white;
+    border: none;
 }
+
 
 /* 등록 버튼 */
 .submit-btn {
