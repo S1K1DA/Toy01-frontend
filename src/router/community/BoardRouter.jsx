@@ -2,8 +2,12 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import StudyBoard from "../../pages/community/study/StudyBoardList";
 import StudyBoardCreate from "../../pages/community/study/StudyBoardCreate";
+import StudyBoardDetail from "../../pages/community/study/StudyBoardDetail";
+import StudyBoardEdit from "../../pages/community/study/StudyBoardEdit";
 import FreeBoard from "../../pages/community/free/FreeBoardList";
 import FreeBoardCreate from "../../pages/community/free/FreeBoardCreate";
+import FreeBoardDetail from "../../pages/community/free/FreeBoardDetail";
+import FreeBoardEdit from "../../pages/community/free/FreeBoardEdit";
 
 const BoardRouter = () => {
     return (
@@ -13,6 +17,12 @@ const BoardRouter = () => {
 
             <Route path="/study/create" element={<StudyBoardCreate />} />
             <Route path="/free/create" element={<FreeBoardCreate />} />
+
+            <Route path="/study/detail" element={<StudyBoardDetail />} />
+            <Route path="/free/detail" element={<FreeBoardDetail />} />
+
+            <Route path="/study/edit" element={<StudyBoardEdit />} />
+            <Route path="/free/edit" element={<FreeBoardEdit />} />
         </Routes>
     );
 };
