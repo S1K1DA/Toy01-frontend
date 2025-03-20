@@ -58,3 +58,14 @@ export const deleteBoard = async (boardNo) => {
         throw error;
     }
 };
+
+// 게시글 수정 API 호출
+export const updateBoard = async (boardNo, boardData) => {
+    try {
+        const response = await api.put(`/boards/edit/${boardNo}`, boardData);
+        return response.data;
+    } catch (error) {
+        console.error("게시글 수정 실패:", error);
+        throw error;
+    }
+};

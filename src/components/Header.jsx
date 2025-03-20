@@ -1,11 +1,17 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import "../styles/global.css";
 
 function Header() {
   const { isLoggedIn, logout } = useContext(AuthContext);
   const [showDropdown, setShowDropdown] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();       
+    navigate("/");   
+  };
 
   return (
     <header className="header">
@@ -32,7 +38,7 @@ function Header() {
       </nav>
       <div className="auth">
         {isLoggedIn ? (
-          <button onClick={logout} className="login-btn">
+          <button onClick={handleLogout} className="login-btn">
             로그아웃
           </button>
         ) : (

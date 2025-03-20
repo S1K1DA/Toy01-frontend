@@ -1,14 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { getBoardDetail, updateBoard } from "../../../services/boardService";
 import "../../../styles/community/boardCreate.css";
 import CommunityNav from "../../../components/CommusityNav";
 
 const StudyBoardEdit = () => {
     const { id } = useParams();
+    const boardNo = Number(id);
     const navigate = useNavigate();
+
+    const [post, setPost] = useState({ title: "", content: "", tags: [] });
     const [selectedTags, setSelectedTags] = useState([]);
 
     const tagsList = ["프로그래밍", "취업준비", "언어공부", "자격증", "프로젝트", "스킬업", "취미"];
+
+    useEffect(() => {
+        const fetchPost = async () => {
+            try {
+                const data = await getBoardDetail(boardNo);
+                setPost({ title: data.title, content: data.content, tags: data.tags });
+                setSelectedTags(data.tags);
+            } catch (error) {
+                alert("게시글 정보를 불러오는데 실패했습니다.");
+                navigate(-1);
+            }
+        };
+        fetchPost();
+    }, [boardNo, navigate]);
+
 
     const handleTagClick = (tag) => {
         setSelectedTags(prevTags =>
@@ -17,23 +36,28 @@ const StudyBoardEdit = () => {
     };
 
 
-    // 기존 게시글 데이터 (더미 데이터)
-    const [post, setPost] = useState({
-        title: "IT기획, PM, PO 취준생을 위한 스터디 모집",
-        content: "이 스터디는 IT 기획과 PM, PO를 준비하는 분들을 위한 스터디입니다. 관심 있는 분들의 많은 참여 부탁드립니다!",
-    });
-
     // 제목 & 내용 수정 핸들러
     const handleChange = (e) => {
         setPost({ ...post, [e.target.name]: e.target.value });
     };
 
     // 수정 버튼 핸들러
-    const handleEdit = (e) => {
+    const handleEdit = async (e) => {
         e.preventDefault();
-        console.log("수정된 글:", post);
-        alert("게시글이 수정되었습니다!");
-        navigate(`/community/study/detail/${id}`);
+
+        if (!post.title.trim() || !post.content.trim()) {
+            alert("제목과 내용을 입력해주세요!");
+            return;
+        }
+
+        try {
+            const updatedData = { ...post, tags: selectedTags };
+            await updateBoard(boardNo, updatedData);
+            alert("게시글이 수정되었습니다!");
+            navigate(`/community/study/detail/${boardNo}`);
+        } catch (error) {
+            alert("게시글 수정 실패: " + (error.response?.data || error.message));
+        }
     };
 
     return (
