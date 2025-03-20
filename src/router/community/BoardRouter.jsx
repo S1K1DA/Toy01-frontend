@@ -1,10 +1,10 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import StudyBoard from "../../pages/community/study/StudyBoardList";
+import StudyBoardList from "../../pages/community/study/StudyBoardList";
 import StudyBoardCreate from "../../pages/community/study/StudyBoardCreate";
 import StudyBoardDetail from "../../pages/community/study/StudyBoardDetail";
 import StudyBoardEdit from "../../pages/community/study/StudyBoardEdit";
-import FreeBoard from "../../pages/community/free/FreeBoardList";
+import FreeBoardList from "../../pages/community/free/FreeBoardList";
 import FreeBoardCreate from "../../pages/community/free/FreeBoardCreate";
 import FreeBoardDetail from "../../pages/community/free/FreeBoardDetail";
 import FreeBoardEdit from "../../pages/community/free/FreeBoardEdit";
@@ -12,8 +12,8 @@ import FreeBoardEdit from "../../pages/community/free/FreeBoardEdit";
 const BoardRouter = () => {
     return (
         <Routes>
-            <Route path="/study" element={<StudyBoard />} />
-            <Route path="/free" element={<FreeBoard />} />
+            <Route path="/study" element={<StudyBoardList />} />
+            <Route path="/free" element={<FreeBoardList />} />
 
             <Route path="/study/create" element={<StudyBoardCreate />} />
             <Route path="/free/create" element={<FreeBoardCreate />} />

@@ -28,6 +28,11 @@ const StudyBoardCreate = () => {
             return;
         }
 
+        if (selectedTags.length === 0) {
+            alert("태그를 하나 이상 선택해주세요!");
+            return;
+        }
+
         try {
             const boardData = {
                 title,
@@ -36,10 +41,10 @@ const StudyBoardCreate = () => {
                 tags: selectedTags,
             };
 
-            const boardNo = await createBoard(boardData);
-            alert("스터디 게시글이 성공적으로 등록되었습니다!");
+            const boardNo = await createBoard(boardData); // 추후 디테일로 넘길때 사용
+            alert("스터디 게시글이 등록되었습니다!");
 
-            navigate(`/community/study/detail/${boardNo}`);
+            navigate(`/community/study/`);
         } catch (error) {
             alert("게시글 작성 실패: " + (error.response?.data || error.message));
         }

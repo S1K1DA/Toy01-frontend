@@ -6,6 +6,16 @@ import CommunityNav from "../../../components/CommusityNav";
 const StudyBoardEdit = () => {
     const { id } = useParams();
     const navigate = useNavigate();
+    const [selectedTags, setSelectedTags] = useState([]);
+
+    const tagsList = ["프로그래밍", "취업준비", "언어공부", "자격증", "프로젝트", "스킬업", "취미"];
+
+    const handleTagClick = (tag) => {
+        setSelectedTags(prevTags =>
+            prevTags.includes(tag) ? prevTags.filter(t => t !== tag) : [...prevTags, tag]
+        );
+    };
+
 
     // 기존 게시글 데이터 (더미 데이터)
     const [post, setPost] = useState({
@@ -45,6 +55,23 @@ const StudyBoardEdit = () => {
                     onChange={handleChange}
                     required
                 />
+
+                <div className="tag-selection">
+                    <h4>태그 선택</h4>
+                    <div className="tag-list">
+                        {tagsList.map((tag) => (
+                            <button
+                                type="button"
+                                key={tag}
+                                className={`tag-item ${selectedTags.includes(tag) ? "selected" : ""}`}
+                                onClick={() => handleTagClick(tag)}
+                            >
+                                {tag}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+
                 <button type="submit" className="submit-btn">수정하기</button>
             </form>
         </div>

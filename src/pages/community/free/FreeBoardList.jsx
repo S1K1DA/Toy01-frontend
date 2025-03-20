@@ -1,32 +1,32 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from '../../../context/AuthContext'; 
+import { getFreeBoardList } from '../../../services/boardService';
+import { formatTimeAgo } from '../../../utils/timeFormatter';
 import '../../../styles/community/boardList.css';
 import CommunityNav from '../../../components/CommusityNav';
 
-const FreeBoard = () => {
+const FreeBoardList = () => {
     const navigate = useNavigate();
     const { isLoggedIn } = useContext(AuthContext);
+
+    const [posts, setPosts] = useState([]);
     const [searchTerm, setSearchTerm] = useState(""); 
     const [currentPage, setCurrentPage] = useState(1);
-    const postsPerPage = 8;
 
-    // 더미 데이터 (백엔드 연동 전에 테스트용)
-    const posts = [
-        { id: 1, title: "자유게시판 첫 번째 글", author: "user01", time: "2시간 전", views: 120, likes: 5 },
-        { id: 2, title: "오늘 날씨가 좋네요!", author: "user02", time: "3시간 전", views: 80, likes: 3 },
-        { id: 3, title: "React 관련 질문 있습니다!", author: "user03", time: "5시간 전", views: 200, likes: 10 },
-        { id: 4, title: "헬스장 어디가 좋은가요?", author: "user04", time: "1시간 전", views: 90, likes: 7 },
-        { id: 5, title: "취업 준비하면서 느낀 점", author: "user05", time: "4시간 전", views: 150, likes: 12 },
-    ];
+    // 백엔드에서 게시글 데이터 가져오기
+    useEffect(() => {
+        const fetchPosts = async () => {
+            try {
+                const data = await getFreeBoardList("free", searchTerm, currentPage);
+                setPosts(data); // 📌 데이터 업데이트
+            } catch (error) {
+                console.error("게시글 목록 불러오기 실패:", error);
+            }
+        };
+        fetchPosts();
+    }, [searchTerm, currentPage]); 
 
-    // 검색 필터링 적용
-    const filteredPosts = posts.filter(post => post.title.includes(searchTerm));
-
-    // 페이지네이션 적용 (8개씩)
-    const indexOfLastPost = currentPage * postsPerPage;
-    const indexOfFirstPost = indexOfLastPost - postsPerPage;
-    const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
 
     // 페이지 변경 함수
     const handlePageChange = (pageNumber) => setCurrentPage(pageNumber);
@@ -49,14 +49,14 @@ const FreeBoard = () => {
 
             {/* 게시글 리스트 */}
             <div className="post-list">
-                {currentPosts.length > 0 ? (
-                    currentPosts.map(post => (
+                {posts.length > 0 ? (
+                    posts.map(post => (
                         <div className="post-card" key={post.id}>
                             <div className="post-info">
-                                <span className="author">{post.author}</span> · 
-                                <span className="time">{post.time}</span> · 
-                                <span className="views">조회 {post.views}</span>
+                                <span className="author">{post.nickname}</span>
+                                <span className="views">조회수 {post.views}</span>
                             </div>
+                                <span className="time">{formatTimeAgo(post.createdAt)}</span>
                             <h3 className="post-title">{post.title}</h3>
                         </div>
                     ))
@@ -81,4 +81,4 @@ const FreeBoard = () => {
     );
 };
 
-export default FreeBoard;
+export default FreeBoardList;
