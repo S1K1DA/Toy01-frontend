@@ -51,7 +51,9 @@ const FreeBoardList = () => {
             <div className="post-list">
                 {posts.length > 0 ? (
                     posts.map(post => (
-                        <div className="post-card" key={post.id}>
+                        <div className="post-card" key={post.id} onClick={() => {
+                            navigate(`/community/study/detail/${post.boardNo}`);
+                        }}>
                             <div className="post-info">
                                 <span className="author">{post.nickname}</span>
                                 <span className="views">조회수 {post.views}</span>

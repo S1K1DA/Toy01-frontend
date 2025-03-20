@@ -36,3 +36,25 @@ export const getFreeBoardList = async (category = "", search = "", page = 1) => 
         throw error;
     }
 };
+
+// 게시글 상세
+export const getBoardDetail = async (boardNo) => {
+    try {
+        console.log("📌 API 요청 boardNo:", boardNo);
+        const response = await api.get(`/boards/detail/${boardNo}`);
+        return response.data;
+    } catch (error) {
+        console.error("게시글 상세 조회 실패:", error);
+        throw error;
+    }
+};
+
+// 게시글 삭제 API 호출
+export const deleteBoard = async (boardNo) => {
+    try {
+        await api.delete(`/boards/delete/${boardNo}`);
+    } catch (error) {
+        console.error("게시글 삭제 실패:", error);
+        throw error;
+    }
+};

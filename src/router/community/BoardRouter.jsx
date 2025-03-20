@@ -18,11 +18,11 @@ const BoardRouter = () => {
             <Route path="/study/create" element={<StudyBoardCreate />} />
             <Route path="/free/create" element={<FreeBoardCreate />} />
 
-            <Route path="/study/detail" element={<StudyBoardDetail />} />
-            <Route path="/free/detail" element={<FreeBoardDetail />} />
+            <Route path="/study/detail/:id" element={<StudyBoardDetail />} />
+            <Route path="/free/detail/:id" element={<FreeBoardDetail />} />
 
-            <Route path="/study/edit" element={<StudyBoardEdit />} />
-            <Route path="/free/edit" element={<FreeBoardEdit />} />
+            <Route path="/study/edit/:id" element={<StudyBoardEdit />} />
+            <Route path="/free/edit/:id" element={<FreeBoardEdit />} />
         </Routes>
     );
 };
