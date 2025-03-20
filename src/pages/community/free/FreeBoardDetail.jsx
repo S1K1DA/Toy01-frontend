@@ -72,8 +72,8 @@ const FreeBoardDetail = () => {
             {/* 본인이 작성한 글일 때만 수정 & 삭제 버튼 표시 */}
             {isLoggedIn && loggedInEmail === post.email && (
                 <div className="button-group">
-                    <button className="edit-btn" onClick={handleEdit}>✏️ 수정</button>
-                    <button className="delete-btn" onClick={handleDelete}>🗑️ 삭제</button>
+                    <button className="board-edit" onClick={handleEdit}>✏️ 수정</button>
+                    <button className="board-delete" onClick={handleDelete}>🗑️ 삭제</button>
                 </div>
             )}
 

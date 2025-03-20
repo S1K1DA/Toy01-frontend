@@ -1,61 +1,79 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { getBoardDetail, updateBoard } from "../../../services/boardService";
 import "../../../styles/community/boardCreate.css";
 import CommunityNav from "../../../components/CommusityNav";
 
 const FreeBoardEdit = () => {
     const { id } = useParams();
+    const boardNo = Number(id);
     const navigate = useNavigate();
 
-    // 더미 데이터 (백엔드 연동 전)
-    const post = {
-        id: 1,
-        title: "오늘 날씨가 좋네요!",
-        author: "user01",
-        content: "오늘 날씨가 너무 좋아요! 다들 산책 나가셨나요?"
+    // 게시글 상태 (기본값 빈 값)
+    const [post, setPost] = useState({ title: "", content: "" });
+
+    // 📌 기존 게시글 데이터 불러오기
+    useEffect(() => {
+        const fetchPost = async () => {
+            try {
+                const data = await getBoardDetail(boardNo);
+                setPost({ title: data.title, content: data.content });
+            } catch (error) {
+                alert("게시글 정보를 불러오는 데 실패했습니다.");
+                navigate(-1); // 실패 시 뒤로가기
+            }
+        };
+        fetchPost();
+    }, [boardNo, navigate]);
+
+    // 📌 제목 & 내용 수정 핸들러
+    const handleChange = (e) => {
+        setPost({ ...post, [e.target.name]: e.target.value });
     };
 
-    // 상태 관리 (기존 글 데이터 불러오기)
-    const [title, setTitle] = useState(post.title);
-    const [content, setContent] = useState(post.content);
-
-    // 수정 제출 핸들러
-    const handleSubmit = (e) => {
+    // 📌 게시글 수정 요청
+    const handleEdit = async (e) => {
         e.preventDefault();
-        const updatedPost = { id, title, content };
-        console.log("수정된 글:", updatedPost);
-        alert("게시글이 수정되었습니다.");
-        navigate(`/community/free/detail/${id}`); // 수정 완료 후 상세 페이지로 이동
+
+        if (!post.title.trim() || !post.content.trim()) {
+            alert("제목과 내용을 입력해주세요!");
+            return;
+        }
+
+        try {
+            await updateBoard(boardNo, post);
+            alert("게시글이 수정되었습니다!");
+            navigate(`/community/free/detail/${boardNo}`);
+        } catch (error) {
+            alert("게시글 수정 실패: " + (error.response?.data || error.message));
+        }
     };
 
     return (
-        <div className="edit-container">
+        <div className="Create-Container">
             <CommunityNav />
             <h2 className="board-title">✏️ 자유게시판 글 수정</h2>
 
-            <form className="post-form" onSubmit={handleSubmit}>
+            <form className="post-form" onSubmit={handleEdit}>
                 {/* 제목 입력 */}
                 <input
                     type="text"
-                    placeholder="제목을 입력하세요..."
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
+                    name="title"
+                    value={post.title}
+                    onChange={handleChange}
                     required
                 />
 
                 {/* 내용 입력 */}
                 <textarea
-                    placeholder="내용을 입력하세요..."
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
+                    name="content"
+                    value={post.content}
+                    onChange={handleChange}
                     required
                 />
 
                 {/* 버튼 그룹 */}
-                <div className="button-group">
-                    <button type="submit" className="submit-btn">✅ 수정 완료</button>
-                    <button type="button" className="cancel-btn" onClick={() => navigate(`/community/free/detail/${id}`)}>❌ 취소</button>
-                </div>
+                    <button type="submit" className="submit-btn">수정하기</button>
             </form>
         </div>
     );
