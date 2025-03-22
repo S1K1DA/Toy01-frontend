@@ -4,6 +4,7 @@ import { AuthContext } from "../../../context/AuthContext";
 import { getBoardDetail } from "../../../services/boardService";
 import { formatTimeAgo } from '../../../utils/timeFormatter';
 import { deleteBoard } from "../../../services/boardService";
+import { likeBoard } from "../../../services/boardService";
 import "../../../styles/community/boardDetail.css";
 import CommunityNav from "../../../components/CommusityNav";
 
@@ -33,6 +34,18 @@ const FreeBoardDetail = () => {
         fetchPost();
     }, [boardNo]);
 
+    const handleLike = async () => {
+        try {
+            const result = await likeBoard(boardNo); 
+    
+            setPost(prevPost => ({
+                ...prevPost,
+                likes: result.liked ? prevPost.likes + 1 : prevPost.likes - 1
+            }));
+        } catch (error) {
+            console.error("좋아요 처리 실패:", error);
+        }
+    };
 
     // 삭제 핸들러
     const handleDelete = async () => {
@@ -65,6 +78,11 @@ const FreeBoardDetail = () => {
                 <h3 className="post-title">{post.title}</h3>
                 <div className="post-meta">
                     <span>작성자: {post.nickname}</span> · <span>{formatTimeAgo(post.createdAt)}</span> · <span>조회 {post.views}</span>
+                </div>
+                <div className="likes">
+                    <button className="like-btn" onClick={handleLike}>
+                        👍 {post.likes} 좋아요
+                    </button>
                 </div>
                 <div className="post-content">{post.content}</div>
             </div>

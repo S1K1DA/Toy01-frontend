@@ -69,3 +69,14 @@ export const updateBoard = async (boardNo, boardData) => {
         throw error;
     }
 };
+
+// 게시글 좋아요 API 호출
+export const likeBoard = async (boardNo) => {
+    try {
+      const response = await api.post(`/boards/like/${boardNo}`);
+      return response.data;
+    } catch (error) {
+      console.error("좋아요 처리 실패:", error);
+      throw error;
+    }
+  };

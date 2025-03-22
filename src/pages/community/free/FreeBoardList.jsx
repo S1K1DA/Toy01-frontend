@@ -56,7 +56,7 @@ const FreeBoardList = () => {
                         }}>
                             <div className="post-info">
                                 <span className="author">{post.nickname}</span>
-                                <span className="views">조회수 {post.views}</span>
+                                <span className="views">조회수 {post.views}👍{post.likes}</span>
                             </div>
                                 <span className="time">{formatTimeAgo(post.createdAt)}</span>
                             <h3 className="post-title">{post.title}</h3>
