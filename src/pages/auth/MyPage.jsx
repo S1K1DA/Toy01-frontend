@@ -19,6 +19,30 @@ const MyPage = () => {
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
+    const [paymentList, setPaymentList] = useState([]); // 💡 추가해줘!
+
+
+    useEffect(() => {
+        // 임시 결제 데이터
+        const dummyPayments = [
+            {
+                date: "2025-03-25",
+                amount: "5,000원",
+                validUntil: "2025-04-25",
+                product: "프리미엄 1개월"
+            },
+            {
+                date: "2025-01-10",
+                amount: "50,000원",
+                validUntil: "무제한",
+                product: "프리미엄 평생권"
+            }
+        ];
+        setPaymentList(dummyPayments);
+    }, []);
+    
+
+
     // 마이페이지 데이터 불러오기
     useEffect(() => {
         let isMounted = true;
@@ -155,7 +179,7 @@ const MyPage = () => {
                         <div className="profile-section">
                             <div className="profile-image-wrapper">
                                 <img
-                                    src={previewImage || "/default-profile.png"}
+                                    src={previewImage || "/default-profile.jpg"}
                                     className="profile-image"
                                     alt=""
                                 />
@@ -217,9 +241,38 @@ const MyPage = () => {
                 {activeTab === "payments" && (
                     <div className="payments-container">
                         <h2>결제 내역</h2>
-                        <p>아직 결제 내역이 없습니다.</p>
+
+                        {paymentList && paymentList.length > 0 ? (
+                            <table className="payment-table">
+                                <thead>
+                                    <tr>
+                                        <th>결제일</th>
+                                        <th>결제금액</th>
+                                        <th>유효기간</th>
+                                        <th>상품명</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {paymentList.map((payment, index) => (
+                                    <tr key={index}>
+                                        <td>{new Date(payment.date).toLocaleDateString()}</td>
+                                        <td>{payment.amount}</td>
+                                        <td>
+                                            {payment.validUntil === "무제한"
+                                                ? "무제한"
+                                                : new Date(payment.validUntil).toLocaleDateString()}
+                                        </td>
+                                        <td>{payment.product}</td>
+                                    </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        ) : (
+                            <p>아직 결제 내역이 없습니다.</p>
+                        )}
                     </div>
                 )}
+
 
                 {activeTab === "account" && (
                     <div className="account-container">

@@ -195,4 +195,16 @@
     background-color: #ff9800;
   }
   
-  
+  .payment-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.payment-table th,
+.payment-table td {
+    border: 1px solid;
+    padding: 10px;
+    text-align: center;
+}
+
